@@ -1,8 +1,6 @@
-from django.http import HttpRequest
 from django.test import TestCase
 
 from lists.models import Item, List
-from lists.views import home_page
 
 
 class NewItemTest(TestCase):
