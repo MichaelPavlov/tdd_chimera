@@ -6,15 +6,15 @@
     <title>To-Do lists</title>
     <link rel="stylesheet" href="/static/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/css/base.css">
-{#    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"#}
-{#            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"#}
-{#            crossorigin="anonymous"></script>#}
-{#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"#}
-{#            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"#}
-{#            crossorigin="anonymous"></script>#}
-{#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"#}
-{#            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"#}
-{#            crossorigin="anonymous"></script>#}
+    {#    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"#}
+    {#            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"#}
+    {#            crossorigin="anonymous"></script>#}
+    {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"#}
+    {#            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"#}
+    {#            crossorigin="anonymous"></script>#}
+    {#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"#}
+    {#            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"#}
+    {#            crossorigin="anonymous"></script>#}
 </head>
 
 <body>
@@ -25,9 +25,14 @@
                 <h1>{% block headr_text %}{% endblock %}</h1>
                 <form method="POST" action="{% block form_action %}{% endblock %}">
                     {% csrf_token %}
-                    <p style="text-align: center;">
-                        <input class="form-control input-lg" name="item_text" id="id_new_item" placeholder="Enter a to-do item">
-                    </p>
+                    <input class="form-control input-lg" name="item_text" id="id_new_item"
+                           placeholder="Enter a to-do item">
+                    {% if error %}
+                        <div class="form-group has-error">
+                            <span class="help-block">{{ error }}</span>
+                        </div>
+                    {% endif %}
+{#                    <p style="text-align: center;"></p>#}
                 </form>
             </div>
         </div>
