@@ -1,7 +1,13 @@
+import re
+
+from django.http import HttpRequest
+from django.template.loader import render_to_string
 from django.test import TestCase
 from django.utils.html import escape
 
+from lists.forms import ItemForm
 from lists.models import Item, List
+from lists.views import home_page
 
 
 class NewListTest(TestCase):
@@ -105,6 +111,17 @@ class ListViewTest(TestCase):
 
 
 class HomePageTest(TestCase):
+    @classmethod
+    def remove_csrf(cls, html_code):
+        csrf_regex = re.compile(r'<input[^>]+csrfmiddlewaretoken[^>]+>', re.MULTILINE)
+        return re.sub(csrf_regex, '', html_code)
+
+    def assertMultiLineEqualExceptCSRF(self, first, second, msg=None):
+        return self.assertMultiLineEqual(
+            self.remove_csrf(first),
+            self.remove_csrf(second)
+        )
+
     def test_saving_a_POST_request(self):
         self.client.post(
             '/lists/new',
@@ -113,3 +130,9 @@ class HomePageTest(TestCase):
         self.assertEqual(Item.objects.count(), 1)
         new_item = Item.objects.first()
         self.assertEqual(new_item.text, "A new list item")
+
+    def test_home_page_returns_correct_html(self):
+        request = HttpRequest()
+        response = home_page(request)
+        expected_html = render_to_string('home.html', request=request, context={'form': ItemForm()})
+        self.assertMultiLineEqualExceptCSRF(response.content.decode(), expected_html)

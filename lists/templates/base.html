@@ -25,8 +25,7 @@
                 <h1>{% block headr_text %}{% endblock %}</h1>
                 <form method="POST" action="{% block form_action %}{% endblock %}">
                     {% csrf_token %}
-                    <input class="form-control input-lg" name="item_text" id="id_new_item"
-                           placeholder="Enter a to-do item">
+                    {{ form.text }}
                     {% if error %}
                         <div class="form-group has-error">
                             <span class="help-block">{{ error }}</span>
