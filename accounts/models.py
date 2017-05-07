@@ -1,6 +1,6 @@
 from django.contrib.auth.base_user import AbstractBaseUser, BaseUserManager
 from django.contrib.auth.models import PermissionsMixin
-from django.db.models import EmailField
+from django.db.models import EmailField, Model, CharField
 
 
 class ListUserManager(BaseUserManager):
@@ -24,3 +24,8 @@ class ListUser(AbstractBaseUser, PermissionsMixin):
     @property
     def is_active(self):
         return True
+
+
+class Token(Model):
+    email = EmailField()
+    uid = CharField(max_length=255)
