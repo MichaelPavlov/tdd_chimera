@@ -21,5 +21,4 @@ urlpatterns = [
     url(r'^$', home_page, name='home'),
     url(r'^lists/new$', new_list, name='new_list'),
     url(r'^lists/', include('lists.urls')),
-    url(r'^accounts/', include('accounts.urls'))
 ]
