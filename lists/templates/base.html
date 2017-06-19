@@ -6,15 +6,6 @@
   <title>To-Do lists</title>
   <link rel="stylesheet" href="/static/css/bootstrap.min.css">
   <link rel="stylesheet" href="/static/css/base.css">
-  {#    <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"#}
-  {#            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"#}
-  {#            crossorigin="anonymous"></script>#}
-  {#    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"#}
-  {#            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"#}
-  {#            crossorigin="anonymous"></script>#}
-  {#    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"#}
-  {#            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"#}
-  {#            crossorigin="anonymous"></script>#}
 </head>
 
 <body>
@@ -22,17 +13,31 @@
   <nav class="navbar navbar-default" role="navigation">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">Superlists</a>
-      <form class="navbar-form navbar-right" method="post" action="#">
+      <form class="navbar-form navbar-right" method="post" action="{% url 'accounts:send-login-email' %}">
         <span>Enter email to log in:</span>
         <input class="form-control" name="email" type="text">
         {% csrf_token %}
       </form>
     </div>
   </nav>
+
+  {% if messages %}
+    <div class="row">
+      <div class="col-md-8">
+        {% for message in messages %}
+          {% if message.level_tag == 'success' %}
+            <div class="alert alert-success">{{ message }}</div>
+          {% else %}
+            <div class="alert alert-warning">{{ message }}</div>
+          {% endif %}
+        {% endfor %}
+      </div>
+    </div>
+  {% endif %}
   <div class="row">
     <div class="col-md-6 offset-md-3 jumbotron">
       <div class="text-center">
-        <h1>{% block headr_text %}{% endblock %}</h1>
+        <h1>{% block header_text %}{% endblock %}</h1>
         <form method="POST" action="{% block form_action %}{% endblock %}">
           {% csrf_token %}
           {{ form.text }}
@@ -41,7 +46,6 @@
               <span class="help-block">{{ form.text.errors }}</span>
             </div>
           {% endif %}
-          {#                    <p style="text-align: center;"></p>#}
         </form>
       </div>
     </div>

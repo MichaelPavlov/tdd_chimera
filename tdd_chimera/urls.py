@@ -20,5 +20,6 @@ from lists.views import home_page, new_list
 urlpatterns = [
     url(r'^$', home_page, name='home'),
     url(r'^lists/new$', new_list, name='new_list'),
-    url(r'^lists/', include('lists.urls')),
+    url(r'^lists/', include('lists.urls', namespace='lists')),
+    url(r'^accounts/', include('accounts.urls', namespace='accounts')),
 ]
