@@ -1,6 +1,9 @@
 import uuid
 
+from django.contrib import auth
 from django.db.models import Model, EmailField, CharField
+
+auth.signals.user_logged_in.disconnect(auth.models.update_last_login)
 
 
 class Token(Model):
