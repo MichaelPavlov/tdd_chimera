@@ -5,7 +5,7 @@ from django.urls import reverse
 
 class List(Model):
     def get_absolute_url(self):
-        return reverse('view_list', args=[self.id])
+        return reverse('lists:view-list', args=[self.id])
 
 
 class Item(Model):
