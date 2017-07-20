@@ -9,6 +9,8 @@ DUPLICATE_ITEM_ERROR = "You've already got this in your list"
 
 
 class ItemForm(ModelForm):
+    use_required_attribute = False
+
     class Meta:
         model = Item
         fields = ['text', ]
