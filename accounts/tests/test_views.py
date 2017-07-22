@@ -72,7 +72,7 @@ class SendLoginEmailViewTest(TestCase):
 
 @patch('accounts.views.auth')
 class LoginViewTest(TestCase):
-    def test_redirects_to_homepage(self):
+    def test_redirects_to_homepage(self, mock_auth):
         response = self.client.get('/accounts/login?token=abcd1234')
         self.assertRedirects(response, '/')
 
