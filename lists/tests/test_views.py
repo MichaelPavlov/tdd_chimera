@@ -177,3 +177,9 @@ class HomePageTest(TestCase):
         response = home_page(request)
         expected_html = render_to_string('home.html', request=request, context={'form': ItemForm()})
         self.assertMultiLineEqualExceptCSRF(response.content.decode(), expected_html)
+
+
+class MyListsTest(TestCase):
+    def test_my_lists_url_renders_my_lists_template(self):
+        response = self.client.get('/lists/users/a@b.com/')
+        self.assertTemplateUsed(response, 'my_lists.html')
