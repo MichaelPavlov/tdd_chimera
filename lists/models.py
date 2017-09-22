@@ -11,6 +11,12 @@ class List(Model):
     def name(self):
         return self.item_set.first().text
 
+    @staticmethod
+    def create_new(first_item_text, owner=None):
+        list_ = List.objects.create(owner=owner)
+        Item.objects.create(text=first_item_text, list=list_)
+        return list_
+
     def get_absolute_url(self):
         return reverse('lists:view-list', args=[self.id])
 
